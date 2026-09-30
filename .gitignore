@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv*/
+.DS_Store
+# raw per-run directories live in data/raw/*.tar.xz
+experiments/
+# internal working notes (infrastructure access details)
+PROGRESS.md

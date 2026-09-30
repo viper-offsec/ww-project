@@ -1,0 +1,16 @@
+{
+  "n_requests": 32,
+  "n_ok": 32,
+  "n_errors": 0,
+  "t_start_ns": 1790518366504612072,
+  "t_end_ns": 1790518400391610497,
+  "window_s": 33.886998425,
+  "ttft_ms_median": 254.57351599999998,
+  "completion_tokens_sum": 4096,
+  "prompt_tokens_sum": 16382,
+  "req_per_s": 0.9443149729187028,
+  "workload": "/home/admin/greenlab_exp/workloads/llama/agentic_small.jsonl",
+  "concurrency": 8,
+  "units_requested": 32,
+  "duration_s": 0
+}

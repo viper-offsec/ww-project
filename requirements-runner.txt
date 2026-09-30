@@ -1,0 +1,12 @@
+aiohttp
+dill
+jinja2
+jsonpickle
+numpy
+nvidia-ml-py
+pandas
+psutil
+pyarrow
+scipy
+tabulate
+transformers

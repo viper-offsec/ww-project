@@ -1,0 +1,16 @@
+{
+  "n_requests": 32,
+  "n_ok": 32,
+  "n_errors": 0,
+  "t_start_ns": 1790519487759660333,
+  "t_end_ns": 1790519534308471492,
+  "window_s": 46.548811159,
+  "ttft_ms_median": 2229.4060485,
+  "completion_tokens_sum": 4096,
+  "prompt_tokens_sum": 262144,
+  "req_per_s": 0.6874504246885141,
+  "workload": "/home/admin/greenlab_exp/workloads/qwen/agentic_large.jsonl",
+  "concurrency": 8,
+  "units_requested": 32,
+  "duration_s": 0
+}

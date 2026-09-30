@@ -1,0 +1,59 @@
+/home/admin/greenlab_exp/experiment-runner/experiment-runner/__main__.py:44: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+  if isinstance(docstring_node, ast.Str):
+/home/admin/greenlab_exp/experiment-runner/experiment-runner/__main__.py:45: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+  docstring_node.s = ''
+=======================  =============================================
+Key                      Value
+=======================  =============================================
+ROOT_DIR                 /home/admin/greenlab_exp/ww-experiment
+experiment_path          /home/admin/greenlab_exp/experiments/e2e_test
+name                     e2e_test
+operation_type           OperationType.AUTO
+results_output_path      /home/admin/greenlab_exp/experiments
+run_table_model
+self_measure             False
+time_between_runs_in_ms  0
+=======================  =============================================
+[EXPERIMENT_RUNNER]:  [93mExperiment run table created...[0m
+[EXPERIMENT_RUNNER]:  [92mExperiment setup completed...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling before_experiment config hook[0m
+[ww 16:22:22] recording 60 s idle baseline
+[ww 16:23:22] idle baseline: {
+  "power_W": 4.448145010136898,
+  "temp_C": 49.0,
+  "cpu_util_pct": 1.731
+}
+[EXPERIMENT_RUNNER]:  [93mCalling before_run config hook[0m
+
+-----------------NEW RUN [1 / 2]-----------------
+
+[EXPERIMENT_RUNNER]:  [93mCalling start_run config hook[0m
+[ww 16:23:22] run run_1_repetition_0: {'model': 'llama', 'engine': 'sglang', 'profile': 'agentic', 'context': 'small'}
+[ww 16:26:27] sglang ready in 179.12 s; warm-up 60 s
+[EXPERIMENT_RUNNER]:  [93m... Starting measurement ...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling interaction config hook[0m
+[ww 16:27:42] measured phase: 160 units at concurrency 8
+[EXPERIMENT_RUNNER]:  [92m... Run completed ...[0m
+[EXPERIMENT_RUNNER]:  [93m... Stopping measurement ...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling stop_run config hook[0m
+[EXPERIMENT_RUNNER]:  [93mCalling populate_run_data config hook[0m
+[ww 16:31:49] result: valid=1  E_tok=0.275857 J/tok window=174.252 s
+[EXPERIMENT_RUNNER]:  [93mCSVManager: Updated row run_1_repetition_0[0m
+[EXPERIMENT_RUNNER]:  [93mCalling before_run config hook[0m
+
+-----------------NEW RUN [2 / 2]-----------------
+
+[EXPERIMENT_RUNNER]:  [93mCalling start_run config hook[0m
+[ww 16:31:49] run run_0_repetition_0: {'model': 'llama', 'engine': 'vllm', 'profile': 'agentic', 'context': 'small'}
+[ww 16:34:13] vllm ready in 139.07 s; warm-up 60 s
+[EXPERIMENT_RUNNER]:  [93m... Starting measurement ...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling interaction config hook[0m
+[ww 16:35:29] measured phase: 160 units at concurrency 8
+[EXPERIMENT_RUNNER]:  [92m... Run completed ...[0m
+[EXPERIMENT_RUNNER]:  [93m... Stopping measurement ...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling stop_run config hook[0m
+[EXPERIMENT_RUNNER]:  [93mCalling populate_run_data config hook[0m
+[ww 16:39:30] result: valid=1  E_tok=0.315514 J/tok window=175.43 s
+[EXPERIMENT_RUNNER]:  [93mCSVManager: Updated row run_0_repetition_0[0m
+[EXPERIMENT_RUNNER]:  [92mExperiment completed...[0m
+[EXPERIMENT_RUNNER]:  [93mCalling after_experiment config hook[0m

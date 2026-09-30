@@ -1,0 +1,44 @@
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+corpora: 40001 human, 83230 gpt texts, 11110 tool schemas, 29027 tasks
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+api_small.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 511.97, 'prompt_tokens_min': 511, 'prompt_tokens_max': 513, 'reusable_prefix_share_pct': 9.94, 'target_mean_tokens': 512}
+api_small_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 511.98, 'prompt_tokens_min': 511, 'prompt_tokens_max': 513, 'reusable_prefix_share_pct': 9.9, 'target_mean_tokens': 512}
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (161271 > 131072). Running this sequence through the model will result in indexing errors
+chat_small.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 208, 'prompt_tokens_max': 815, 'reusable_prefix_share_pct': 62.68, 'target_mean_tokens': 512}
+chat_small_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 512.02, 'prompt_tokens_min': 208, 'prompt_tokens_max': 815, 'reusable_prefix_share_pct': 62.64, 'target_mean_tokens': 512}
+agentic_small.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 511.97, 'prompt_tokens_min': 510, 'prompt_tokens_max': 513, 'reusable_prefix_share_pct': 76.07, 'target_mean_tokens': 512}
+agentic_small_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 511.98, 'prompt_tokens_min': 511, 'prompt_tokens_max': 512, 'reusable_prefix_share_pct': 75.74, 'target_mean_tokens': 512}
+api_medium.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 2047.96, 'prompt_tokens_min': 2047, 'prompt_tokens_max': 2049, 'reusable_prefix_share_pct': 2.49, 'target_mean_tokens': 2048}
+api_medium_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 2047.96, 'prompt_tokens_min': 2047, 'prompt_tokens_max': 2048, 'reusable_prefix_share_pct': 2.47, 'target_mean_tokens': 2048}
+chat_medium.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 2048.03, 'prompt_tokens_min': 1744, 'prompt_tokens_max': 2351, 'reusable_prefix_share_pct': 71.92, 'target_mean_tokens': 2048}
+chat_medium_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 2047.97, 'prompt_tokens_min': 1744, 'prompt_tokens_max': 2351, 'reusable_prefix_share_pct': 71.91, 'target_mean_tokens': 2048}
+agentic_medium.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 2047.96, 'prompt_tokens_min': 2046, 'prompt_tokens_max': 2049, 'reusable_prefix_share_pct': 75.14, 'target_mean_tokens': 2048}
+agentic_medium_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 2047.99, 'prompt_tokens_min': 2047, 'prompt_tokens_max': 2049, 'reusable_prefix_share_pct': 74.88, 'target_mean_tokens': 2048}
+api_large.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 8191.97, 'prompt_tokens_min': 8191, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 0.62, 'target_mean_tokens': 8192}
+api_large_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 8191.97, 'prompt_tokens_min': 8191, 'prompt_tokens_max': 8193, 'reusable_prefix_share_pct': 0.62, 'target_mean_tokens': 8192}
+chat_large.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 8192.02, 'prompt_tokens_min': 7888, 'prompt_tokens_max': 8496, 'reusable_prefix_share_pct': 74.23, 'target_mean_tokens': 8192}
+chat_large_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 8191.98, 'prompt_tokens_min': 7889, 'prompt_tokens_max': 8495, 'reusable_prefix_share_pct': 74.23, 'target_mean_tokens': 8192}
+agentic_large.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 8191.97, 'prompt_tokens_min': 8190, 'prompt_tokens_max': 8193, 'reusable_prefix_share_pct': 74.92, 'target_mean_tokens': 8192}
+agentic_large_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 8191.97, 'prompt_tokens_min': 8190, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 74.62, 'target_mean_tokens': 8192}
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+corpora: 40001 human, 83230 gpt texts, 11110 tool schemas, 29027 tasks
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (221043 > 131072). Running this sequence through the model will result in indexing errors
+api_small.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 512, 'prompt_tokens_max': 512, 'reusable_prefix_share_pct': 5.68, 'target_mean_tokens': 512}
+api_small_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 512, 'prompt_tokens_max': 512, 'reusable_prefix_share_pct': 5.63, 'target_mean_tokens': 512}
+chat_small.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 209, 'prompt_tokens_max': 815, 'reusable_prefix_share_pct': 61.61, 'target_mean_tokens': 512}
+chat_small_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 209, 'prompt_tokens_max': 815, 'reusable_prefix_share_pct': 61.59, 'target_mean_tokens': 512}
+agentic_small.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 512, 'prompt_tokens_max': 512, 'reusable_prefix_share_pct': 75.9, 'target_mean_tokens': 512}
+agentic_small_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 512.0, 'prompt_tokens_min': 512, 'prompt_tokens_max': 512, 'reusable_prefix_share_pct': 75.76, 'target_mean_tokens': 512}
+api_medium.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 2048, 'prompt_tokens_max': 2048, 'reusable_prefix_share_pct': 1.41, 'target_mean_tokens': 2048}
+api_medium_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 2048, 'prompt_tokens_max': 2048, 'reusable_prefix_share_pct': 1.41, 'target_mean_tokens': 2048}
+chat_medium.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 1745, 'prompt_tokens_max': 2351, 'reusable_prefix_share_pct': 71.65, 'target_mean_tokens': 2048}
+chat_medium_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 1745, 'prompt_tokens_max': 2351, 'reusable_prefix_share_pct': 71.65, 'target_mean_tokens': 2048}
+agentic_medium.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 2048, 'prompt_tokens_max': 2048, 'reusable_prefix_share_pct': 75.1, 'target_mean_tokens': 2048}
+agentic_medium_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 2048.0, 'prompt_tokens_min': 2048, 'prompt_tokens_max': 2048, 'reusable_prefix_share_pct': 74.78, 'target_mean_tokens': 2048}
+api_large.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 8192, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 0.35, 'target_mean_tokens': 8192}
+api_large_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 8192, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 0.35, 'target_mean_tokens': 8192}
+chat_large.jsonl: {'n_units': 120, 'n_requests': 480, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 7889, 'prompt_tokens_max': 8495, 'reusable_prefix_share_pct': 74.16, 'target_mean_tokens': 8192}
+chat_large_warmup.jsonl: {'n_units': 40, 'n_requests': 160, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 7889, 'prompt_tokens_max': 8495, 'reusable_prefix_share_pct': 74.16, 'target_mean_tokens': 8192}
+agentic_large.jsonl: {'n_units': 480, 'n_requests': 480, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 8192, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 74.92, 'target_mean_tokens': 8192}
+agentic_large_warmup.jsonl: {'n_units': 160, 'n_requests': 160, 'prompt_tokens_mean': 8192.0, 'prompt_tokens_min': 8192, 'prompt_tokens_max': 8192, 'reusable_prefix_share_pct': 74.61, 'target_mean_tokens': 8192}
+WORKLOADS_OK

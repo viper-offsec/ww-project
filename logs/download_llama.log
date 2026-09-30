@@ -1,0 +1,4 @@
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Fetching 14 files:   7%|▋         | 1/14 [00:00<00:04,  2.73it/s]Fetching 14 files:  36%|███▌      | 5/14 [00:00<00:00, 12.84it/s]Fetching 14 files:  57%|█████▋    | 8/14 [00:00<00:00, 10.83it/s]Fetching 14 files:  71%|███████▏  | 10/14 [00:01<00:00,  5.57it/s]Fetching 14 files:  71%|███████▏  | 10/14 [00:20<00:00,  5.57it/s]Fetching 14 files:  79%|███████▊  | 11/14 [00:36<00:19,  6.46s/it]Fetching 14 files:  86%|████████▌ | 12/14 [02:04<00:46, 23.36s/it]Fetching 14 files:  93%|█████████▎| 13/14 [02:05<00:18, 18.34s/it]Fetching 14 files: 100%|██████████| 14/14 [02:06<00:00, 13.93s/it]Fetching 14 files: 100%|██████████| 14/14 [02:06<00:00,  9.01s/it]
+[32m✓ Downloaded[0m
+  path: /home/admin/greenlab_exp/models/Llama-3.1-8B-Instruct
+LLAMA_OK

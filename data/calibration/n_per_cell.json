@@ -1,0 +1,15 @@
+{
+  "llama/agentic_large": 120,
+  "llama/agentic_medium": 176,
+  "llama/agentic_small": 192,
+  "llama/api_large": 64,
+  "llama/api_medium": 136,
+  "llama/api_small": 184,
+  "llama/chat_large": 32,
+  "llama/chat_medium": 40,
+  "llama/chat_small": 48,
+  "qwen/agentic_large": 144,
+  "qwen/agentic_small": 208,
+  "qwen/api_large": 80,
+  "qwen/api_small": 192
+}

@@ -1,0 +1,16 @@
+{
+  "n_requests": 32,
+  "n_ok": 32,
+  "n_errors": 0,
+  "t_start_ns": 1790517219498526171,
+  "t_end_ns": 1790517288093829899,
+  "window_s": 68.595303728,
+  "ttft_ms_median": 365.81989550000003,
+  "completion_tokens_sum": 4096,
+  "prompt_tokens_sum": 262142,
+  "req_per_s": 0.4665042395160046,
+  "workload": "/home/admin/greenlab_exp/workloads/llama/chat_large_warmup.jsonl",
+  "concurrency": 8,
+  "units_requested": 0,
+  "duration_s": 20.0
+}

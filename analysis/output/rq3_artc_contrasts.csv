@@ -1,0 +1,76 @@
+"metric","term","contrast","estimate","SE","df","t","p_holm"
+"E_tok_J","engine:profile","vllm - sglang | api - chat",97.3000000000002,17.8965982927671,162,5.43678739435772,5.89166453533096e-07
+"E_tok_J","engine:profile","vllm - sglang | api - agentic",79.066666666667,17.8965982927671,162,4.41797180521292,3.63218013840376e-05
+"E_tok_J","engine:profile","vllm - sglang | chat - agentic",-18.2333333333332,17.8965982927671,162,-1.01881558914479,0.309809623862089
+"E_tok_J","engine:context","vllm - sglang | small - medium",-31.9333333333332,12.639223031806,162,-2.52652661108791,0.0124787067385041
+"E_tok_J","engine:context","vllm - sglang | small - large",-176,12.639223031806,162,-13.9249065830315,5.20202155675487e-29
+"E_tok_J","engine:context","vllm - sglang | medium - large",-144.066666666667,12.6392230318061,162,-11.3983799719436,3.5815087953782e-22
+"E_tok_J","engine:profile:context","vllm - sglang | api - chat | small - medium",-12.7000000000001,43.6349276793287,162,-0.291051244391463,1
+"E_tok_J","engine:profile:context","vllm - sglang | api - agentic | small - medium",-54.1,43.6349276793287,162,-1.23983246626599,0.867321210952074
+"E_tok_J","engine:profile:context","vllm - sglang | chat - agentic | small - medium",-41.3999999999999,43.6349276793287,162,-0.948781221874522,1
+"E_tok_J","engine:profile:context","vllm - sglang | api - chat | small - large",-206.7,43.6349276793287,162,-4.73703088312716,4.23979222625367e-05
+"E_tok_J","engine:profile:context","vllm - sglang | api - agentic | small - large",-175.3,43.6349276793287,162,-4.01742386943488,0.000629103848921513
+"E_tok_J","engine:profile:context","vllm - sglang | chat - agentic | small - large",31.4000000000002,43.6349276793287,162,0.719607013692276,1
+"E_tok_J","engine:profile:context","vllm - sglang | api - chat | medium - large",-194,43.6349276793287,162,-4.4459796387357,0.000129397293961136
+"E_tok_J","engine:profile:context","vllm - sglang | api - agentic | medium - large",-121.2,43.6349276793287,162,-2.7775914031689,0.0367368014911115
+"E_tok_J","engine:profile:context","vllm - sglang | chat - agentic | medium - large",72.8,43.6349276793287,162,1.6683882355668,0.48585161616831
+"ttft_ms_median","engine:profile","vllm - sglang | api - chat",-239.9,3.74982578470492,162,-63.9763055069179,2.05152402152175e-116
+"ttft_ms_median","engine:profile","vllm - sglang | api - agentic",-177.2,3.74982578470492,162,-47.2555287029007,2.28180835333664e-96
+"ttft_ms_median","engine:profile","vllm - sglang | chat - agentic",62.6999999999999,3.74982578470492,162,16.7207768040173,4.15765035808583e-37
+"ttft_ms_median","engine:context","vllm - sglang | small - medium",54.0333333333332,3.72514534198735,162,14.5050268842683,4.34319441626237e-31
+"ttft_ms_median","engine:context","vllm - sglang | small - large",237,3.72514534198735,162,63.6216786842366,4.87833813342078e-116
+"ttft_ms_median","engine:context","vllm - sglang | medium - large",182.966666666667,3.72514534198735,162,49.1166517999683,6.55864757020455e-99
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - chat | small - medium",78.7000000000002,7.45634206813482,162,10.5547732763401,1.13353914037291e-19
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - agentic | small - medium",61.3,7.45634206813482,162,8.22118934993202,1.23250344652e-13
+"ttft_ms_median","engine:profile:context","vllm - sglang | chat - agentic | small - medium",-17.4000000000002,7.45634206813482,162,-2.33358392640814,0.0208459233690393
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - chat | small - large",551.1,7.45634206813482,162,73.9102357381326,9.3228037244424e-126
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - agentic | small - large",385.9,7.45634206813482,162,51.7545998391315,7.93344057844819e-102
+"ttft_ms_median","engine:profile:context","vllm - sglang | chat - agentic | small - large",-165.2,7.45634206813482,162,-22.1556358990012,3.35873974108004e-50
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - chat | medium - large",472.4,7.45634206813482,162,63.3554624617925,2.49990183053187e-115
+"ttft_ms_median","engine:profile:context","vllm - sglang | api - agentic | medium - large",324.6,7.45634206813481,162,43.5334104891995,1.54272380091102e-90
+"ttft_ms_median","engine:profile:context","vllm - sglang | chat - agentic | medium - large",-147.8,7.45634206813482,162,-19.822051972593,1.44844987443442e-44
+"tpot_ms_median","engine:profile","vllm - sglang | api - chat",237.933333333334,5.55817715922526,162,42.8077994848402,9.4584048920879e-90
+"tpot_ms_median","engine:profile","vllm - sglang | api - agentic",166.733333333334,5.55817715922526,162,29.997844357407,9.81583657975388e-68
+"tpot_ms_median","engine:profile","vllm - sglang | chat - agentic",-71.1999999999999,5.55817715922526,162,-12.8099551274332,2.15231758164335e-26
+"tpot_ms_median","engine:context","vllm - sglang | small - medium",-51.2,5.07894872632211,162,-10.0808263203468,7.42068940580007e-19
+"tpot_ms_median","engine:context","vllm - sglang | small - large",-233.4,5.07894872632211,162,-45.9543918587686,2.30764224002128e-94
+"tpot_ms_median","engine:context","vllm - sglang | medium - large",-182.2,5.07894872632212,162,-35.8735655384217,1.12008893794193e-78
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - chat | small - medium",-62.5000000000002,9.64853983707661,162,-6.47766408755762,2.13184572484814e-09
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - agentic | small - medium",-76.6,9.64853983707661,162,-7.93902510571059,9.61522356278116e-13
+"tpot_ms_median","engine:profile:context","vllm - sglang | chat - agentic | small - medium",-14.0999999999998,9.64853983707661,162,-1.46136101815297,0.145853345852601
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - chat | small - large",-545.7,9.64853983707661,162,-56.5577806812829,1.2313777924863e-107
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - agentic | small - large",-350.6,9.64853983707661,162,-36.3371044655631,6.15583116909271e-79
+"tpot_ms_median","engine:profile:context","vllm - sglang | chat - agentic | small - large",195.1,9.64853983707661,162,20.2206762157198,1.44827688792822e-45
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - chat | medium - large",-483.2,9.64853983707661,162,-50.0801165937253,1.36800929588641e-99
+"tpot_ms_median","engine:profile:context","vllm - sglang | api - agentic | medium - large",-274,9.6485398370766,162,-28.3980793598525,5.15599715324434e-64
+"tpot_ms_median","engine:profile:context","vllm - sglang | chat - agentic | medium - large",209.2,9.64853983707661,162,21.6820372338728,4.6274370692239e-49
+"kv_peak_pct","engine:profile","vllm - sglang | api - chat",-43.3666666666668,7.71903211485245,162,-5.61814823690441,8.23485370339735e-08
+"kv_peak_pct","engine:profile","vllm - sglang | api - agentic",-217.033333333334,7.71903211485245,162,-28.1166511687045,9.87467756128191e-64
+"kv_peak_pct","engine:profile","vllm - sglang | chat - agentic",-173.666666666667,7.71903211485244,162,-22.4985029318001,2.04738298188567e-51
+"kv_peak_pct","engine:context","vllm - sglang | small - medium",-32.7999999999999,5.734582120675,162,-5.7196844181105,5.02326398433148e-08
+"kv_peak_pct","engine:context","vllm - sglang | small - large",186.4,5.734582120675,162,32.5045480346281,1.39844146635354e-72
+"kv_peak_pct","engine:context","vllm - sglang | medium - large",219.2,5.73458212067501,162,38.2242324527386,1.69471428536647e-82
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - chat | small - medium",-18.1999999999996,22.2224444433334,162,-0.818991810122829,0.413994259078144
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - agentic | small - medium",-84.5999999999998,22.2224444433333,162,-3.80696193057103,0.000597654664999909
+"kv_peak_pct","engine:profile:context","vllm - sglang | chat - agentic | small - medium",-66.4000000000002,22.2224444433333,162,-2.9879701204482,0.00649126567559115
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - chat | small - large",-209.7,22.2224444433334,162,-9.43640563641545,2.43093919790861e-16
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - agentic | small - large",195.2,22.2224444433333,162,8.78391216131756,1.07922038367777e-14
+"kv_peak_pct","engine:profile:context","vllm - sglang | chat - agentic | small - large",404.9,22.2224444433334,162,18.220317797733,3.67178371156854e-40
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - chat | medium - large",-191.5,22.2224444433333,162,-8.61741382629263,2.34654141485551e-14
+"kv_peak_pct","engine:profile:context","vllm - sglang | api - agentic | medium - large",279.8,22.2224444433333,162,12.5908740918886,6.12581496284881e-25
+"kv_peak_pct","engine:profile:context","vllm - sglang | chat - agentic | medium - large",471.3,22.2224444433333,162,21.2082879181812,1.18152057888633e-47
+"E_tok_pint_J","engine:profile","vllm - sglang | api - chat",219.533333333334,6.80416841494463,162,32.2645354943232,5.94049915263088e-72
+"E_tok_pint_J","engine:profile","vllm - sglang | api - agentic",185.700000000001,6.80416841494463,162,27.2920934161668,3.54585420861008e-62
+"E_tok_pint_J","engine:profile","vllm - sglang | chat - agentic",-33.8333333333332,6.80416841494462,162,-4.97244207815637,1.6707961020841e-06
+"E_tok_pint_J","engine:context","vllm - sglang | small - medium",-57.5333333333333,3.60005715546764,162,-15.9812277552188,4.0505378667321e-35
+"E_tok_pint_J","engine:context","vllm - sglang | small - large",-238.666666666667,3.60005715546764,162,-66.2952437586132,7.91867960603204e-119
+"E_tok_pint_J","engine:context","vllm - sglang | medium - large",-181.133333333333,3.60005715546764,162,-50.3140160033944,1.6822118200491e-100
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - chat | small - medium",-65.3000000000001,8.95257739286898,162,-7.2939888854816,5.06322938849282e-11
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - agentic | small - medium",-87.1,8.95257739286897,162,-9.72904183653057,3.3201334317723e-17
+"E_tok_pint_J","engine:profile:context","vllm - sglang | chat - agentic | small - medium",-21.7999999999999,8.95257739286897,162,-2.43505295104897,0.0319494656071833
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - chat | small - large",-491.4,8.95257739286898,162,-54.8892211075903,1.23988364086299e-105
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - agentic | small - large",-476,8.95257739286897,162,-53.1690460871245,1.46314167228977e-103
+"E_tok_pint_J","engine:profile:context","vllm - sglang | chat - agentic | small - large",15.4000000000002,8.95257739286898,162,1.72017502046581,0.0873102049213096
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - chat | medium - large",-426.1,8.95257739286897,162,-47.5952322221088,2.70425380764282e-96
+"E_tok_pint_J","engine:profile:context","vllm - sglang | api - agentic | medium - large",-388.9,8.95257739286897,162,-43.440004250594,2.1259626537262e-90
+"E_tok_pint_J","engine:profile:context","vllm - sglang | chat - agentic | medium - large",37.2000000000001,8.95257739286897,162,4.15522797151479,0.000157448490825376

@@ -1,0 +1,10 @@
+--- a/build.rs
++++ b/build.rs
+@@
+         "Apple" => println!("cargo:rustc-cfg=apple"),
+         _ => {
+-            panic!("unknown CPU detected: {}", cpu);
++            // ARM hosts (e.g. NVIDIA GB10 / DGX Spark): no RAPL, but GPU (NVML) sampling works
++            println!("cargo:warning=unknown CPU vendor {}: building without CPU energy counters", cpu);
+         }
+     };

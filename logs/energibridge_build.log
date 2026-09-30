@@ -1,0 +1,151 @@
+   Compiling serde v1.0.189
+   Compiling darling v0.10.2
+   Compiling energibridge v0.0.7 (/home/admin/greenlab_exp/EnergiBridge)
+   Compiling wrapcenum-derive v0.4.0
+warning: energibridge@0.0.7: unknown CPU vendor ARM: building without CPU energy counters
+   Compiling nvml-wrapper v0.7.0
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src/cpu/intel.rs:2:13
+  |
+2 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::fs`
+ --> src/cpu/intel.rs:6:5
+  |
+6 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `std::fs::DirEntry`
+ --> src/cpu/intel.rs:7:5
+  |
+7 | use std::fs::DirEntry;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::Instant`
+ --> src/cpu/intel.rs:8:5
+  |
+8 | use std::time::Instant;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `once_cell::sync::OnceCell`
+ --> src/cpu/msr.rs:1:5
+  |
+1 | use once_cell::sync::OnceCell;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Once`
+ --> src/cpu/msr.rs:2:5
+  |
+2 | use std::sync::Once;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `once_cell::sync::OnceCell`
+ --> src/cpu/msr/linux.rs:3:5
+  |
+3 | use once_cell::sync::OnceCell;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ffi::CString` and `sync::Once`
+ --> src/cpu/msr/linux.rs:4:11
+  |
+4 | use std::{ffi::CString, sync::Once};
+  |           ^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `OpenOptions`
+ --> src/cpu/msr/linux.rs:6:16
+  |
+6 |     fs::{File, OpenOptions},
+  |                ^^^^^^^^^^^
+
+warning: unused imports: `CpuExt` and `RefreshKind`
+  --> src/main.rs:18:15
+   |
+18 | use sysinfo::{CpuExt, ProcessExt, RefreshKind, System, SystemExt};
+   |               ^^^^^^              ^^^^^^^^^^^
+
+warning: unused import: `ProcessExt`
+  --> src/main.rs:18:23
+   |
+18 | use sysinfo::{CpuExt, ProcessExt, RefreshKind, System, SystemExt};
+   |                       ^^^^^^^^^^
+
+warning: unnecessary `unsafe` block
+  --> src/cpu/msr.rs:17:5
+   |
+17 |     unsafe {
+   |     ^^^^^^ unnecessary `unsafe` block
+   |
+   = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `results`
+ --> src/gpu/amd.rs:3:28
+  |
+3 | pub fn get_amd_gpu_counter(results: &mut HashMap<String, f64>) {}
+  |                            ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_results`
+  |
+  = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `pid`
+   --> src/main.rs:198:49
+    |
+198 | ...stem, collect_gpu: bool, pid: u32, results: &mut HashMap<String, f64...
+    |                             ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+
+warning: constant `INTEL_TIME_UNIT_MASK` is never used
+  --> src/cpu/intel.rs:18:7
+   |
+18 | const INTEL_TIME_UNIT_MASK: u64 = 0xF0000; // Bits 19:16
+   |       ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `INTEL_POWER_UNIT_MASK` is never used
+  --> src/cpu/intel.rs:20:7
+   |
+20 | const INTEL_POWER_UNIT_MASK: u64 = 0x0F; // Bits 3:0
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `INTEL_TIME_UNIT_OFFSET` is never used
+  --> src/cpu/intel.rs:22:7
+   |
+22 | const INTEL_TIME_UNIT_OFFSET: u32 = 0x10; // Offset 16
+   |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `INTEL_POWER_UNIT_OFFSET` is never used
+  --> src/cpu/intel.rs:24:7
+   |
+24 | const INTEL_POWER_UNIT_OFFSET: u32 = 0; // Offset 0
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_process_usage` is never used
+ --> src/process.rs:4:8
+  |
+4 | pub fn get_process_usage(sys: &mut System, pid: u32, results: &mut HashMa...
+  |        ^^^^^^^^^^^^^^^^^
+
+warning: variable `Did` should have a snake case name
+  --> src/cpu/amd.rs:31:17
+   |
+31 |             let Did = ((fid >> 8) & 0x3F) as f64;
+   |                 ^^^ help: convert the identifier to snake case: `did`
+   |
+   = note: `#[warn(non_snake_case)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: variable `Fid` should have a snake case name
+  --> src/cpu/amd.rs:32:17
+   |
+32 |             let Fid = (fid & 0xFF) as f64;
+   |                 ^^^ help: convert the identifier to snake case (notice the capitalization): `fid`
+
+warning: variable `Vid` should have a snake case name
+  --> src/cpu/amd.rs:33:17
+   |
+33 |             let Vid = ((fid >> 14) & 0xff) as f64;
+   |                 ^^^ help: convert the identifier to snake case (notice the capitalization): `vid`
+
+warning: `energibridge` (bin "energibridge") generated 22 warnings (run `cargo fix --bin "energibridge" -p energibridge` to apply 12 suggestions)
+    Finished `release` profile [optimized] target(s) in 2.32s
+ENERGIBRIDGE_BUILD_OK

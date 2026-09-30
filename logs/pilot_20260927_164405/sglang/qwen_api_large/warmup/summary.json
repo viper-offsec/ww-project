@@ -1,0 +1,16 @@
+{
+  "n_requests": 8,
+  "n_ok": 8,
+  "n_errors": 0,
+  "t_start_ns": 1790519297255973154,
+  "t_end_ns": 1790519319175866886,
+  "window_s": 21.919893732,
+  "ttft_ms_median": 7128.4507455,
+  "completion_tokens_sum": 1024,
+  "prompt_tokens_sum": 65536,
+  "req_per_s": 0.3649652729986146,
+  "workload": "/home/admin/greenlab_exp/workloads/qwen/api_large_warmup.jsonl",
+  "concurrency": 8,
+  "units_requested": 0,
+  "duration_s": 20.0
+}

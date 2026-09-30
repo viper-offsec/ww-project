@@ -1,0 +1,145 @@
+{
+  "engine": "sglang",
+  "model": "llama",
+  "cells": {
+    "api_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ttft_ms": [
+        857,
+        857,
+        857,
+        857,
+        857,
+        857,
+        857,
+        186
+      ]
+    },
+    "chat_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        51,
+        51,
+        210,
+        209,
+        411,
+        412,
+        613,
+        614
+      ],
+      "ttft_ms": [
+        193,
+        108,
+        184,
+        184,
+        185,
+        186,
+        187,
+        187
+      ]
+    },
+    "agentic_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        27,
+        391,
+        27,
+        27,
+        27,
+        390,
+        27,
+        390
+      ],
+      "ttft_ms": [
+        604,
+        712,
+        604,
+        604,
+        143,
+        712,
+        604,
+        712
+      ]
+    },
+    "api_large": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ],
+      "ttft_ms": [
+        1768,
+        10560,
+        7054,
+        14006,
+        3580,
+        8794,
+        5340,
+        12273
+      ]
+    }
+  },
+  "start_s": 177.1,
+  "metrics": {
+    "sglang:num_running_reqs": 8.0,
+    "sglang:num_queue_reqs": 0.0,
+    "sglang:cache_hit_rate": 0.0,
+    "sglang:token_usage": 0.81,
+    "sglang:full_token_usage": 0.806591796875,
+    "sglang:swa_token_usage": 0.0,
+    "sglang:num_used_tokens": 66076.0,
+    "sglang:pending_prealloc_token_usage": 0.0,
+    "sglang:num_retracted_reqs": 0.0,
+    "sglang:prompt_tokens_total": 77831.0,
+    "sglang:generation_tokens_total": 4104.0,
+    "sglang:cached_tokens_total": 4286.0
+  }
+}

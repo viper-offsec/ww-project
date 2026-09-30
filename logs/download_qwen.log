@@ -1,0 +1,5 @@
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Still waiting to acquire lock on /home/admin/greenlab_exp/models/Qwen2.5-7B-Instruct/.cache/huggingface/.gitignore.lock (elapsed: 0.1 seconds)
+Fetching 14 files:   7%|▋         | 1/14 [00:00<00:06,  1.92it/s]Fetching 14 files:  21%|██▏       | 3/14 [00:00<00:02,  5.48it/s]Fetching 14 files:  43%|████▎     | 6/14 [00:00<00:00, 10.95it/s]Fetching 14 files:  57%|█████▋    | 8/14 [00:01<00:00,  6.67it/s]Fetching 14 files:  71%|███████▏  | 10/14 [00:01<00:00,  7.21it/s]Fetching 14 files:  71%|███████▏  | 10/14 [00:20<00:00,  7.21it/s]Fetching 14 files:  79%|███████▊  | 11/14 [01:48<01:03, 21.18s/it]Fetching 14 files:  86%|████████▌ | 12/14 [01:48<00:33, 16.56s/it]Fetching 14 files:  93%|█████████▎| 13/14 [01:52<00:13, 13.72s/it]Fetching 14 files: 100%|██████████| 14/14 [02:00<00:00, 12.22s/it]Fetching 14 files: 100%|██████████| 14/14 [02:00<00:00,  8.63s/it]
+[32m✓ Downloaded[0m
+  path: /home/admin/greenlab_exp/models/Qwen2.5-7B-Instruct
+QWEN_OK

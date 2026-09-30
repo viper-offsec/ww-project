@@ -1,0 +1,145 @@
+{
+  "engine": "vllm",
+  "model": "llama",
+  "cells": {
+    "api_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        48,
+        48,
+        0,
+        48,
+        48,
+        48,
+        48,
+        48
+      ],
+      "ttft_ms": [
+        490,
+        490,
+        490,
+        490,
+        887,
+        887,
+        887,
+        887
+      ]
+    },
+    "chat_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        48,
+        48,
+        208,
+        208,
+        400,
+        400,
+        608,
+        608
+      ],
+      "ttft_ms": [
+        107,
+        195,
+        165,
+        191,
+        173,
+        206,
+        164,
+        261
+      ]
+    },
+    "agentic_small": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        16,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384
+      ],
+      "ttft_ms": [
+        149,
+        338,
+        338,
+        338,
+        338,
+        338,
+        338,
+        338
+      ]
+    },
+    "api_large": {
+      "rc": 0,
+      "n": 8,
+      "errors": [],
+      "completion_tokens": [
+        128
+      ],
+      "prompt_minus_expected": [
+        0
+      ],
+      "cached_tokens": [
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48
+      ],
+      "ttft_ms": [
+        2082,
+        4141,
+        6223,
+        8322,
+        10441,
+        12611,
+        14832,
+        17091
+      ]
+    }
+  },
+  "start_s": 145.1,
+  "metrics": {
+    "vllm:num_requests_running": 0.0,
+    "vllm:num_requests_waiting": 0.0,
+    "vllm:num_requests_waiting_by_reason": 0.0,
+    "vllm:kv_cache_usage_perc": 0.0,
+    "vllm:prefix_cache_queries_total": 77824.0,
+    "vllm:prefix_cache_hits_total": 5952.0,
+    "vllm:external_prefix_cache_queries_total": 0.0,
+    "vllm:external_prefix_cache_hits_total": 0.0,
+    "vllm:mm_cache_hits_total": 0.0,
+    "vllm:num_preemptions_total": 0.0,
+    "vllm:prompt_tokens_total": 77824.0,
+    "vllm:generation_tokens_total": 4096.0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_errors": 0,
+  "t_start_ns": 1790518468328508888,
+  "t_end_ns": 1790518497376263566,
+  "window_s": 29.047754678,
+  "ttft_ms_median": 3745.804717,
+  "completion_tokens_sum": 2048,
+  "prompt_tokens_sum": 131072,
+  "req_per_s": 0.5508171002324657,
+  "workload": "/home/admin/greenlab_exp/workloads/llama/agentic_large_warmup.jsonl",
+  "concurrency": 8,
+  "units_requested": 0,
+  "duration_s": 20.0
+}

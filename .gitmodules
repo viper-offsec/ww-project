@@ -1,0 +1,6 @@
+[submodule "tools/experiment-runner"]
+	path = tools/experiment-runner
+	url = https://github.com/S2-group/experiment-runner.git
+[submodule "tools/EnergiBridge"]
+	path = tools/EnergiBridge
+	url = https://github.com/tdurieux/EnergiBridge.git
