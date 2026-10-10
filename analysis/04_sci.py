@@ -44,7 +44,7 @@ for r in rows:
         last = first
         for last in rd:
             pass
-    runs.append({"t_start": info["t_start_run"], "cool_s": info["cooldown_s"],
+    runs.append({"t_start": info["t_start_run"], "cool_s": info["cooldown_s"], "e_win_J": float(r["E_gpu_J"]),
                  "e0_mJ": float(first["energy_mJ"]), "t0": int(first["t_ns"]) / 1e9, "t1": int(last["t_ns"]) / 1e9})
 runs.sort(key=lambda x: x["t0"])
 e_cycles_J = sum((b["e0_mJ"] - a["e0_mJ"]) / 1000 for a, b in zip(runs, runs[1:]))
@@ -101,3 +101,76 @@ if report:
              r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     (report / "tables" / "sci.tex").write_text("\n".join(lines) + "\n")
     print("wrote", report / "tables" / "sci.tex")
+
+# ---------------------------------------------------------------- figure: cumulative GPU energy + SCI breakdown
+if report:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({"font.size": 7, "axes.labelsize": 7, "xtick.labelsize": 6.5, "ytick.labelsize": 6.5,
+                         "legend.fontsize": 6.3, "axes.linewidth": 0.6, "pdf.fonttype": 42})
+    C_GPU, C_REST, C_EMB = "#2a78d6", "#1baf7a", "#6250d6"     # categorical slots (validated, light mode)
+    BACK = chr(92) * 4                                          # 135-degree hatch
+    INK, MUTED = "#0b0b0b", "#52514e"
+    t_ref = min(x["t_start"] for x in runs)
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(3.4, 3.55), gridspec_kw={"height_ratios": [1.15, 1]})
+
+    # (a) cumulative GPU energy: all phases (NVML counter) vs. inside the measured windows
+    xs = [(x["t0"] - t_ref) / 3600 for x in runs]
+    tot = [(x["e0_mJ"] - runs[0]["e0_mJ"]) / 3.6e9 for x in runs]
+    win, acc = [], 0.0
+    for x in runs:
+        win.append(acc / 3.6e6)
+        acc += x["e_win_J"]
+    ax1.fill_between(xs, win, tot, color=C_GPU, alpha=0.13, linewidth=0, label="Overhead (start, warm-up, cool-down)")
+    ax1.plot(xs, tot, color=C_GPU, linewidth=1.6, label="All phases (NVML energy counter)")
+    ax1.plot(xs, win, color=C_GPU, linewidth=1.2, linestyle=(0, (3, 2)), label="Inside measured windows")
+    for b in range(1, 10):                                   # block boundaries (every 26 runs), recessive
+        ax1.axvline(xs[26 * b], color="#d9d8d4", linewidth=0.5, zorder=0)
+    ax1.annotate(f"{tot[-1]:.2f} kWh", (xs[-1], tot[-1]), xytext=(-2, 3), textcoords="offset points",
+                 ha="right", va="bottom", fontsize=6.5, color=INK)
+    ax1.annotate(f"{win[-1]:.2f} kWh ({100 * win[-1] / tot[-1]:.0f}%)", (xs[-1], win[-1]), xytext=(-2, 3),
+                 textcoords="offset points", ha="right", va="bottom", fontsize=6.5, color=INK)
+    ax1.set_xlim(0, t_exp_h)
+    ax1.set_ylim(0, tot[-1] * 1.12)
+    ax1.set_xlabel("Elapsed time (h); grey lines: block boundaries")
+    ax1.set_ylabel("GPU energy (kWh)")
+    ax1.set_title("(a) GPU energy over the 55 h experiment", fontsize=7, loc="left", pad=3)
+    ax1.legend(loc="upper left", frameon=False, handlelength=2.2, borderaxespad=0.2)
+    for sp in ("top", "right"):
+        ax1.spines[sp].set_visible(False)
+    ax1.tick_params(length=2, pad=1, colors=MUTED)
+
+    # (b) SCI components per scenario (stacked, kgCO2e)
+    names = ["Low", "Mid", "High"]
+    gpu = [o["E_gpu_kWh"] * o["I_g_per_kWh"] / 1000 for o in out]
+    rest = [o["E_rest_kWh"] * o["I_g_per_kWh"] / 1000 for o in out]
+    emb = [o["M_kg"] for o in out]
+    ys = list(range(len(out)))[::-1]
+    segs = [("GPU, measured", gpu, C_GPU, None), ("Rest of system, modelled", rest, C_REST, "////"),
+            ("Embodied, modelled", emb, C_EMB, BACK)]
+    left = [0.0] * len(out)
+    for label, vals, col, hatch in segs:
+        ax2.barh(ys, vals, left=left, height=0.56, color=col, edgecolor="white", linewidth=1.2, hatch=hatch,
+                 label=label)
+        for y, v, l0 in zip(ys, vals, left):
+            if v > 0.12:
+                ax2.text(l0 + v / 2, y, f"{v:.2f}", ha="center", va="center", fontsize=5.8, color="white",
+                         fontweight="bold", bbox=dict(boxstyle="round,pad=0.15", fc=col, ec="none"))
+        left = [l0 + v for l0, v in zip(left, vals)]
+    for y, o in zip(ys, out):
+        ax2.text(o["C_kg"] + 0.03, y, f"{o['C_kg']:.2f} kg  ({o['SCI_g_per_run']:.1f} g/run)", va="center",
+                 fontsize=6.2, color=INK)
+    ax2.set_yticks(ys, names)
+    ax2.set_xlim(0, max(o["C_kg"] for o in out) * 1.55)
+    ax2.set_xlabel("kgCO$_2$e for the whole experiment")
+    ax2.set_title("(b) SCI components per scenario", fontsize=7, loc="left", pad=14)
+    ax2.legend(loc="lower left", bbox_to_anchor=(0, 0.99), ncol=3, frameon=False, fontsize=5.6, handlelength=1.3,
+               handletextpad=0.4, columnspacing=0.7, borderaxespad=0.1)
+    for sp in ("top", "right"):
+        ax2.spines[sp].set_visible(False)
+    ax2.tick_params(length=2, pad=1, colors=MUTED)
+    fig.tight_layout(pad=0.3, h_pad=0.9)
+    fig.savefig(report / "figures" / "sci.pdf")
+    plt.close(fig)
+    print("wrote", report / "figures" / "sci.pdf")
