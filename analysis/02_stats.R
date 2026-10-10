@@ -55,10 +55,11 @@ write.csv(desc, "analysis/output/descriptives.csv", row.names = FALSE)
 
 # ---------------------------------------------------------------- RQ1 + RQ2 (Llama, API x Small)
 base <- cell("llama", "api", "small")
-rq1 <- rbind(compare(base, "E_tok_J"), compare(base, "cpu_util_mean_pct"))
-rq1$p_holm <- p.adjust(rq1$p_raw, "holm"); rq1$rq <- c("RQ1.1", "RQ1.2")
-rq1_desc <- rbind(compare(base, "E_total_J"), compare(base, "E_req_J"),
-                  compare(base, "P_gpu_mean_W"), compare(base, "window_s"))
+# RQ1 family: H0 1.1 (E_tok), 1.2 (host CPU), 1.3a (mean GPU power), 1.3b (run duration); Holm over the four
+rq1 <- rbind(compare(base, "E_tok_J"), compare(base, "cpu_util_mean_pct"),
+             compare(base, "P_gpu_mean_W"), compare(base, "window_s"))
+rq1$p_holm <- p.adjust(rq1$p_raw, "holm"); rq1$rq <- c("RQ1.1", "RQ1.2", "RQ1.3a", "RQ1.3b")
+rq1_desc <- rbind(compare(base, "E_total_J"), compare(base, "E_req_J"))
 rq1_desc$p_holm <- NA; rq1_desc$rq <- "RQ1 (descriptive)"
 # RQ1.3 exact log-ratio decomposition on geometric means
 v <- base[base$engine == "vllm", ]; s <- base[base$engine == "sglang", ]
@@ -67,6 +68,15 @@ dec <- data.frame(ln_E = log(gmean(s$E_gpu_J) / gmean(v$E_gpu_J)),
                   ln_t = log(gmean(s$window_s) / gmean(v$window_s)))
 dec$check <- dec$ln_P + dec$ln_t - dec$ln_E
 dec$share_P <- dec$ln_P / dec$ln_E; dec$share_t <- dec$ln_t / dec$ln_E
+# bootstrap 95% CI of the three log-ratios (runs resampled within each engine)
+bt <- t(replicate(5000, {
+  vs <- v[sample(nrow(v), replace = TRUE), ]; ss <- s[sample(nrow(s), replace = TRUE), ]
+  c(ln_E = log(gmean(ss$E_gpu_J) / gmean(vs$E_gpu_J)), ln_P = log(gmean(ss$P_gpu_mean_W) / gmean(vs$P_gpu_mean_W)),
+    ln_t = log(gmean(ss$window_s) / gmean(vs$window_s)))
+}))
+for (k in c("ln_E", "ln_P", "ln_t")) {
+  dec[[paste0(k, "_lo")]] <- quantile(bt[, k], 0.025); dec[[paste0(k, "_hi")]] <- quantile(bt[, k], 0.975)
+}
 write.csv(dec, "analysis/output/rq1_decomposition.csv", row.names = FALSE)
 # the same decomposition for every condition (used in the discussion)
 decall <- do.call(rbind, lapply(split(rt, list(rt$model, rt$profile, rt$context), drop = TRUE), function(d) {
@@ -112,7 +122,7 @@ write.csv(do.call(rbind, align_rows), "analysis/output/rq3_art_alignment_check.c
 simple <- do.call(rbind, lapply(split(rt, list(rt$model, rt$profile, rt$context), drop = TRUE), function(d)
   do.call(rbind, lapply(c("E_tok_J", "E_tok_pint_J", "eta_tok_per_J", "e2e_ms_median", "EDP_Js", "ttft_ms_median",
                           "tpot_ms_median", "kv_peak_pct", "prefix_hit_pct", "P_gpu_mean_W", "window_s",
-                          "cpu_util_mean_pct", "T_gen_tps"),
+                          "cpu_util_mean_pct", "T_gen_tps", "ttft_ms_p90", "tpot_ms_p90"),
                         function(mt) cbind(model = d$model[1], profile = d$profile[1], context = d$context[1],
                                            compare(d, mt))))))
 simple$p_holm <- ave(simple$p_raw, simple$model, simple$metric, FUN = function(p) p.adjust(p, "holm"))
@@ -170,4 +180,39 @@ drift <- do.call(rbind, lapply(split(rt, list(rt$model, rt$profile, rt$context, 
 }))
 drift$p_holm <- p.adjust(drift$p, "holm")
 write.csv(drift, "analysis/output/drift.csv", row.names = FALSE)
+
+# ---------------------------------------------------------------- thermal state (cool-down) checks
+# (a) temperature each run starts from (after the previous run's cool-down), by engine
+th <- rt[order(rt$t_start_run), ][-1, ]                 # the first run starts from the cold idle baseline
+w_pre <- suppressWarnings(wilcox.test(temp_before_run_C ~ engine, data = th, exact = FALSE))
+# (b) window-start temperature, by engine (includes the engine's own start-up and warm-up)
+w_win <- suppressWarnings(wilcox.test(gpu_temp_start_C ~ engine, data = rt, exact = FALSE))
+thermal <- data.frame(
+  check = c("cooldown_s", "cooldown_end_temp_C", "temp_before_run_C (vllm)", "temp_before_run_C (sglang)",
+            "gpu_temp_start_C (vllm)", "gpu_temp_start_C (sglang)"),
+  min = c(min(rt$cooldown_s), min(rt$cooldown_end_temp_C), min(th$temp_before_run_C[th$engine == "vllm"]),
+          min(th$temp_before_run_C[th$engine == "sglang"]), min(rt$gpu_temp_start_C[rt$engine == "vllm"]),
+          min(rt$gpu_temp_start_C[rt$engine == "sglang"])),
+  median = c(median(rt$cooldown_s), median(rt$cooldown_end_temp_C), median(th$temp_before_run_C[th$engine == "vllm"]),
+             median(th$temp_before_run_C[th$engine == "sglang"]), median(rt$gpu_temp_start_C[rt$engine == "vllm"]),
+             median(rt$gpu_temp_start_C[rt$engine == "sglang"])),
+  mean = c(mean(rt$cooldown_s), mean(rt$cooldown_end_temp_C), mean(th$temp_before_run_C[th$engine == "vllm"]),
+           mean(th$temp_before_run_C[th$engine == "sglang"]), mean(rt$gpu_temp_start_C[rt$engine == "vllm"]),
+           mean(rt$gpu_temp_start_C[rt$engine == "sglang"])),
+  max = c(max(rt$cooldown_s), max(rt$cooldown_end_temp_C), max(th$temp_before_run_C[th$engine == "vllm"]),
+          max(th$temp_before_run_C[th$engine == "sglang"]), max(rt$gpu_temp_start_C[rt$engine == "vllm"]),
+          max(rt$gpu_temp_start_C[rt$engine == "sglang"])),
+  p_engine = c(NA, NA, w_pre$p.value, NA, w_win$p.value, NA))
+write.csv(thermal, "analysis/output/thermal.csv", row.names = FALSE)
+# (c) within-cell Spearman correlation of E_tok with the thermal state
+thc <- do.call(rbind, lapply(split(rt, list(rt$model, rt$profile, rt$context, rt$engine), drop = TRUE), function(d) {
+  a <- suppressWarnings(cor.test(d$gpu_temp_start_C, d$E_tok_J, method = "spearman", exact = FALSE))
+  b <- suppressWarnings(cor.test(d$temp_before_run_C, d$E_tok_J, method = "spearman", exact = FALSE))
+  data.frame(model = d$model[1], profile = d$profile[1], context = d$context[1], engine = d$engine[1],
+             rho_window_start = unname(a$estimate), p_window_start = a$p.value,
+             rho_before_run = unname(b$estimate), p_before_run = b$p.value)
+}))
+thc$p_window_start_holm <- p.adjust(thc$p_window_start, "holm")
+thc$p_before_run_holm <- p.adjust(thc$p_before_run, "holm")
+write.csv(thc, "analysis/output/thermal_correlation.csv", row.names = FALSE)
 cat("done\n")

@@ -1,0 +1,7 @@
+"check","min","median","mean","max","p_engine"
+"cooldown_s",301.6,301.7,301.678461538462,301.7,NA
+"cooldown_end_temp_C",37,38,38.2961538461538,39,NA
+"temp_before_run_C (vllm)",38,38,38.3307692307692,39,0.260362427658254
+"temp_before_run_C (sglang)",37,38,38.2635658914729,39,NA
+"gpu_temp_start_C (vllm)",49,50.5,50.7615384615385,55,1.77338467825277e-39
+"gpu_temp_start_C (sglang)",53,55,55.0461538461538,58,NA

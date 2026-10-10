@@ -189,6 +189,11 @@ def fig_tradeoff():
 MAGCOL = {"large": "efL", "medium": "efM", "small": "efS", "negligible": "efN"}
 
 
+def blu(x):
+    """Assignment-3 revision marking: content changed for the A2 feedback is typeset in blue."""
+    return rf"\textcolor{{blue}}{{{x}}}"
+
+
 def fmt_p(p):
     return r"$<$1e$-$4" if p < 1e-4 else r"$<$0.001" if p < 0.001 else f"{p:.3f}"
 
@@ -259,12 +264,12 @@ def tab_baseline():
              "T_req_rps": r"$T_{\mathrm{req}}$ (req/s)", "T_gen_tps": r"$T_{\mathrm{gen}}$ (tok/s)",
              "ttft_ms_median": r"$t_{\mathrm{TTFT}}$ (ms)", "tpot_ms_median": r"$t_{\mathrm{TPOT}}$ (ms)",
              "kv_peak_pct": r"$U_{\mathrm{KV}}$ (\%)"}
-    order = [("RQ1.1", "E_tok_J"), ("RQ1", "E_total_J"), ("RQ1", "E_req_J"), ("RQ1.3", "P_gpu_mean_W"),
-             ("RQ1.3", "window_s"), ("RQ1.2", "cpu_util_mean_pct"), ("RQ2.1", "T_req_rps"), ("RQ2.1", "T_gen_tps"),
+    order = [("RQ1.1", "E_tok_J"), ("RQ1", "E_total_J"), ("RQ1", "E_req_J"), ("RQ1.3a", "P_gpu_mean_W"),
+             ("RQ1.3b", "window_s"), ("RQ1.2", "cpu_util_mean_pct"), ("RQ2.1", "T_req_rps"), ("RQ2.1", "T_gen_tps"),
              ("RQ2.2", "ttft_ms_median"), ("RQ2.3", "tpot_ms_median"), ("RQ2.4", "kv_peak_pct")]
     lines = [r"\begin{table}[!t]", r"\caption{Engine comparison in the baseline condition (Llama, API $\times$ "
              r"Small; $n = 10$ runs per engine): medians, difference of medians with bootstrap 95\% CI, "
-             r"Holm-adjusted Mann-Whitney $p$ (RQ1.1--1.2 and RQ2 families; -- = descriptive), and Cliff's "
+             r"Holm-adjusted Mann-Whitney $p$ (\rev{RQ1 family: H$_0^{1.1}$--H$_0^{1.3b}$}; RQ2 family; -- = descriptive), and Cliff's "
              r"$\delta$ (SGLang vs.\ vLLM), coloured by magnitude.}", r"\label{tab:baseline}", r"\scriptsize",
              r"\setlength{\tabcolsep}{2.5pt}", r"\begin{tabular}{llrrrrr}", r"\toprule",
              r"\textbf{RQ} & \textbf{Metric} & \textbf{vLLM} & \textbf{SGLang} & \textbf{$\Delta$\% [95\% CI]} & "
@@ -276,8 +281,11 @@ def tab_baseline():
         p = "--" if pd.isna(r.p_holm) else fmt_p(r.p_holm)
         if not pd.isna(r.p_holm) and r.p_holm < 0.05:
             p = rf"\textbf{{{p}}}"
+        if m in ("E_tok_J", "P_gpu_mean_W", "window_s"):     # A3: RQ1 is now a family of four hypotheses
+            p = blu(p)
+        label = blu(rq) if rq in ("RQ1.3a", "RQ1.3b") else rq
         d = rf"\cellcolor{{{MAGCOL[r.magnitude]}}}{signed(r.delta, 2)}"
-        lines.append(f"{rq} & {names[m]} & {num(r.med_v, nd)} & {num(r.med_s, nd)} & {ci} & {p} & {d} \\\\")
+        lines.append(f"{label} & {names[m]} & {num(r.med_v, nd)} & {num(r.med_s, nd)} & {ci} & {p} & {d} \\\\")
     lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     (TAB / "baseline.tex").write_text("\n".join(lines) + "\n")
 
@@ -321,13 +329,15 @@ def tab_effects():
     mets = [("E_tok_J", r"$E_{\mathrm{tok}}$"), ("E_tok_pint_J", r"$E_{\mathrm{tok}}^{\mathrm{P}}$"),
             ("P_gpu_mean_W", r"$\bar{P}_{\mathrm{GPU}}$"), ("window_s", r"$\Delta t_{\mathrm{run}}$"),
             ("ttft_ms_median", r"$t_{\mathrm{TTFT}}$"), ("tpot_ms_median", r"$t_{\mathrm{TPOT}}$"),
+            ("ttft_ms_p90", blu(r"$t^{90}_{\mathrm{TTFT}}$")), ("tpot_ms_p90", blu(r"$t^{90}_{\mathrm{TPOT}}$")),
             ("e2e_ms_median", r"$t_{\mathrm{E2E}}$"), ("kv_peak_pct", r"$U_{\mathrm{KV}}$"),
             ("prefix_hit_pct", r"$H_{\mathrm{prefix}}$"), ("cpu_util_mean_pct", r"CPU")]
     lines = [r"\begin{table*}[!t]", r"\caption{Engine effect per condition: difference of medians of SGLang "
              r"relative to vLLM (\%), coloured by the magnitude of Cliff's $\delta$; bold: Holm-adjusted "
              r"Mann-Whitney $p < 0.05$ (Holm over the conditions of each model). $E_{\mathrm{tok}}^{\mathrm{P}}$: "
-             r"power-integral estimate. Negative values mean that SGLang is lower.}", r"\label{tab:effects}",
-             r"\footnotesize", r"\setlength{\tabcolsep}{4pt}", r"\begin{tabular}{lll" + "r" * len(mets) + "}",
+             r"power-integral estimate. \rev{$t^{90}$: 90th percentile of the per-request latency in a run (tail).} "
+             r"Negative values mean that SGLang is lower.}", r"\label{tab:effects}",
+             r"\scriptsize", r"\setlength{\tabcolsep}{3.2pt}", r"\begin{tabular}{lll" + "r" * len(mets) + "}",
              r"\toprule", r"\textbf{Model} & \textbf{Profile} & \textbf{Context} & "
              + " & ".join(n for _, n in mets) + r" \\", r"\midrule"]
     first = True
@@ -346,6 +356,8 @@ def tab_effects():
                     txt = signed(r.diff_pct)
                     if r.p_holm < 0.05:
                         txt = rf"\textbf{{{txt}}}"
+                    if m.endswith("_p90"):
+                        txt = blu(txt)
                     cells.append(rf"\cellcolor{{{MAGCOL[r.magnitude]}}}{txt}")
                 mname = {"llama": "Llama", "qwen": "Qwen"}[model]
                 lines.append(f"{mname} & {PNAME[p]} & {CNAME[c]} & " + " & ".join(cells) + r" \\")
@@ -415,6 +427,102 @@ def fig_qq():
         plt.close(fig)
 
 
+# ------------------------------------------------------------------ Table: hypothesis decisions (A3, feedback on A2)
+COND_SHORT = {("api", "small"): "API/S", ("api", "medium"): "API/M", ("api", "large"): "API/L",
+              ("chat", "small"): "Chat/S", ("chat", "medium"): "Chat/M", ("chat", "large"): "Chat/L",
+              ("agentic", "small"): "Agentic/S", ("agentic", "medium"): "Agentic/M", ("agentic", "large"): "Agentic/L"}
+
+
+def tab_hypotheses():
+    def mw_row(h, text, metric, family):
+        r = base[base.metric == metric].iloc[0]
+        p = (r"$p_{\mathrm{Holm}} < 10^{-4}$" if r.p_holm < 1e-4 else r"$p_{\mathrm{Holm}} < 0.001$"
+             if r.p_holm < 0.001 else rf"$p_{{\mathrm{{Holm}}}} = {r.p_holm:.3f}$")
+        dec = "Rejected" if r.p_holm < 0.05 else "Not rejected"
+        return (h, text, f"Mann-Whitney $U$, Holm ({family})", rf"{p}, $\delta$ = {signed(r.delta, 2)}", dec)
+
+    def art_row(h, text, term, metrics):
+        fs = [art[(art.metric == m) & (art.term == term)].iloc[0] for m in metrics]
+        assert all(f.p < 1e-4 for f in fs)
+        return (h, text, "ART-ANOVA", r"$F$ = " + ", ".join(f"{f.F:.1f}" for f in fs) + r"; all $p < 10^{-4}$",
+                "Rejected")
+
+    def cond_row(h, text, pcol, dcol):
+        ll = rq4[rq4.model == "llama"]
+        sig = ll[(ll[pcol] < 0.05) & (ll[dcol].abs() >= 0.147)]
+        where = ", ".join(COND_SHORT[(r.profile, r.context)] for r in sig.itertuples())
+        return (h, text, r"Mann-Whitney $U$ per condition, Holm (9), $|\delta| \geq 0.147$",
+                f"rejected in {len(sig)} of 9: {where}", f"Rejected in {len(sig)}/9")
+
+    rows = [
+        (r"\multicolumn{5}{l}{\textit{RQ1 and RQ2: Llama, API $\times$ Small, 10 runs per engine}} \\", None),
+        mw_row(r"H$_0^{1.1}$", r"$E_{\mathrm{tok}}$ does not differ between the engines", "E_tok_J", "RQ1, 4 tests"),
+        mw_row(r"H$_0^{1.2}$", r"Host CPU utilisation does not differ", "cpu_util_mean_pct", "RQ1, 4 tests"),
+        mw_row(r"H$_0^{1.3a}$", r"Mean GPU power $\bar{P}_{\mathrm{GPU}}$ does not differ", "P_gpu_mean_W", "RQ1, 4 tests"),
+        mw_row(r"H$_0^{1.3b}$", r"Run duration $\Delta t_{\mathrm{run}}$ does not differ", "window_s", "RQ1, 4 tests"),
+        mw_row(r"H$_0^{2.1}$", r"Throughput $T_{\mathrm{req}}$ ($= T_{\mathrm{gen}}/128$) does not differ", "T_req_rps",
+               "RQ2, 5 tests"),
+        mw_row(r"H$_0^{2.2}$", r"$t_{\mathrm{TTFT}}$ does not differ", "ttft_ms_median", "RQ2, 5 tests"),
+        mw_row(r"H$_0^{2.3}$", r"$t_{\mathrm{TPOT}}$ does not differ", "tpot_ms_median", "RQ2, 5 tests"),
+        mw_row(r"H$_0^{2.4}$", r"$U_{\mathrm{KV}}$ does not differ", "kv_peak_pct", "RQ2, 5 tests"),
+        (r"\midrule \multicolumn{5}{l}{\textit{RQ3: Llama, 18 cells, 10 runs each; outcomes $E_{\mathrm{tok}}$, $t_{\mathrm{TTFT}}$, $t_{\mathrm{TPOT}}$ (RQ3.1--3.3) and $U_{\mathrm{KV}}$ (RQ3.4)}} \\", None),
+        art_row(r"H$_0^{3.1}$", r"Engine $\times$ Profile: $(\alpha\beta)_{ij} = 0$", "engine:profile",
+                ["E_tok_J", "ttft_ms_median", "tpot_ms_median"]),
+        art_row(r"H$_0^{3.2}$", r"Engine $\times$ Context: $(\alpha\gamma)_{ik} = 0$", "engine:context",
+                ["E_tok_J", "ttft_ms_median", "tpot_ms_median"]),
+        art_row(r"H$_0^{3.3}$", r"Engine $\times$ Profile $\times$ Context: $(\alpha\beta\gamma)_{ijk} = 0$",
+                "engine:profile:context", ["E_tok_J", "ttft_ms_median", "tpot_ms_median"]),
+        (r"H$_0^{3.4}$", r"The three interaction terms are 0 for $U_{\mathrm{KV}}$", "ART-ANOVA",
+         r"$F$ = " + ", ".join(f"{art[(art.metric == 'kv_peak_pct') & (art.term == t)].iloc[0].F:.1f}"
+                               for t in ("engine:profile", "engine:context", "engine:profile:context"))
+         + r"; all $p < 10^{-4}$", "Rejected"),
+        (r"\midrule \multicolumn{5}{l}{\textit{RQ4: Llama, 9 profile $\times$ context conditions, 10 runs per engine}} \\", None),
+        cond_row(r"H$_0^{4.1a}$", r"Efficiency $\eta$ does not differ (per condition)", "eta_p_holm", "eta_delta"),
+        cond_row(r"H$_0^{4.1b}$", r"Latency $t_{\mathrm{E2E}}$ does not differ (per condition)", "e2e_p_holm", "e2e_delta"),
+        cond_row(r"H$_0^{4.2}$", r"EDP does not differ (per condition)", "edp_p_holm", "edp_delta"),
+    ]
+    lines = [r"\begin{table*}[!t]", r"\color{blue}",
+             r"\caption{Hypothesis tests and decisions (two-sided, $\alpha = 0.05$). H$_1$ is the negation of each "
+             r"H$_0$ (a difference, or a non-zero interaction). S/M/L: Small/Medium/Large context.}",
+             r"\label{tab:hypotheses}", r"\footnotesize",
+             r"\setlength{\tabcolsep}{4pt}", r"\begin{tabular}{L{1.2cm}L{5.1cm}L{3.5cm}L{4.6cm}L{1.6cm}}", r"\toprule",
+             r"\textbf{H$_0$} & \textbf{Null hypothesis} & \textbf{Test} & \textbf{Result} & \textbf{Decision} \\",
+             r"\midrule"]
+    for row in rows:
+        if row[1] is None:
+            lines.append(row[0])
+        else:
+            lines.append(" & ".join(row) + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table*}"]
+    (TAB / "hypotheses.tex").write_text("\n".join(lines) + "\n")
+
+
+# ------------------------------------------------------------------ Table: run-time budget, planned vs measured (A3)
+def tab_budget():
+    order = rt.sort_values("t_start_run")
+    cyc = order.t_start_run.diff().dropna()
+    cyc_med = cyc[cyc < 1200].median()                 # one cycle includes a 10-min guard wait (contaminated run)
+    st_med, win_med, cool_med = rt.engine_start_s.median(), rt.window_s.median(), rt.cooldown_s.median()
+    book = cyc_med - st_med - 60 - win_med - cool_med
+    m = lambda x: f"{x / 60:.1f}"
+    rows = [("Engine start", "2.5", f"{m(st_med)} ({st_med:.0f} s)", "fresh process: no cache carry-over"),
+            ("Warm-up", "1.0", "1.0 (60 s)", "steady state before measuring"),
+            ("Measured window", "3.4--4.6", f"{m(win_med)} ({win_med:.0f} s)", r"$\geq$ 180 s for sensor accuracy~\cite{yang2024accurate}"),
+            ("Cool-down", "5.0", f"{m(cool_med)} ({cool_med:.0f} s)", "equal thermal start; 5-min cap"),
+            ("Stop and store", "0.5", f"{m(book)} ({book:.0f} s)", "engine shutdown, run data"),
+            (r"\textbf{One run}", r"\textbf{12.7}", rf"\textbf{{{m(cyc_med)} ({cyc_med:.0f} s)}}", ""),
+            (r"\textbf{All runs}", r"\textbf{55.0 h}", r"\textbf{55.4 h}", "260 runs + 1 repeated")]
+    lines = [r"\begin{table}[!t]", r"\color{blue}",
+             r"\caption{Duration of one run in minutes: planned (Section~\ref{sec:design}) vs.\ measured "
+             r"(median over all runs).}", r"\label{tab:budget}", r"\scriptsize",
+             r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{L{1.75cm}L{1.0cm}L{1.6cm}L{3.3cm}}", r"\toprule",
+             r"\textbf{Phase} & \textbf{Planned} & \textbf{Measured} & \textbf{Purpose} \\", r"\midrule"]
+    lines += [" & ".join(r) + r" \\" for r in rows[:5]]
+    lines += [r"\midrule"] + [" & ".join(r) + r" \\" for r in rows[5:]]
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+    (TAB / "budget.tex").write_text("\n".join(lines) + "\n")
+
+
 if __name__ == "__main__":
     fig_qq()
     fig_baseline()
@@ -426,5 +534,7 @@ if __name__ == "__main__":
     tab_art()
     tab_effects()
     tab_rq4()
+    tab_hypotheses()
+    tab_budget()
     print("figures:", sorted(p.name for p in FIG.glob("*.pdf")))
     print("tables:", sorted(p.name for p in TAB.glob("*.tex")))

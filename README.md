@@ -21,6 +21,10 @@ SGLang has a longer time-to-first-token (up to 2.3×) but a shorter time per out
 more than twice the host CPU utilisation; both engines reach the same prefix-cache hit rates. Full results:
 [`analysis/output/`](analysis/output/).
 
+Carbon footprint of the whole experiment (SCI, Netherlands grid): about 1.1 kgCO2e (0.86–1.33), i.e. 4.3 gCO2e per
+run; GPU energy measured with the NVML counter over all 55 h (1.31 kWh), rest of the system and embodied emissions
+modelled from published data ([`analysis/04_sci.py`](analysis/04_sci.py)).
+
 ## Design at a glance
 
 | Element | Setting |
@@ -66,6 +70,8 @@ data/Run_Table_derived.csv   per-run columns derived from the raw samples (power
 analysis/01_derive.py   raw NVML samples -> data/Run_Table_derived.csv
 analysis/02_stats.R     descriptive statistics, Shapiro-Wilk, Mann-Whitney U, Cliff's delta, ART-ANOVA/ART-C, RQ4 rule, sensitivity analyses
 analysis/03_report.py   figures and LaTeX tables of the report (+ Q-Q plots in analysis/output/)
+analysis/04_sci.py      carbon footprint of the experiment (Green Software Foundation SCI)
+analysis/R_session_info.txt   R and package versions used for the analysis
 analysis/output/        all statistical results as CSV
 data/raw/ww_vllm_sglang_gx10.tar.xz   raw per-run data (NVML samples, per-request records, /metrics scrapes,
                         guard samples, engine logs, EnergiBridge CSVs) + environment.json + experiment-runner run table
@@ -105,7 +111,8 @@ cd .. && .venv-runner/bin/python experiment-runner/experiment-runner/ ww-experim
 # needs the raw per-run directories (experiments/ww_vllm_sglang_gx10/) for step 1 only
 python3 analysis/01_derive.py <raw experiment dir>
 Rscript analysis/02_stats.R          # R >= 4.3 with ARTool and effsize
-python3 analysis/03_report.py [report dir]   # pandas, numpy, matplotlib
+python3 analysis/03_report.py <report dir>   # pandas, numpy, matplotlib
+python3 analysis/04_sci.py <raw experiment dir> [report dir]   # SCI footprint -> analysis/output/sci.csv
 ```
 
 ## Run-table columns
